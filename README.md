@@ -27,26 +27,22 @@ Questo tool:
 
 ### Requisiti
 - Java JDK 25 o superiore installato.
+- Per verificare, apri il terminale e scrivi: `java -version`.
 
-### Avvio Rapido
+### Avvio (Mac, Windows & Linux)
+Il modo più sicuro e universale per avviare il tool è usare il terminale.
 
-#### 🍎 Su Mac/Linux:
-Fai doppio click sul file `run_mac.command` oppure esegui da terminale:
-```bash
-./run_mac.command
-```
+1. Scarica l'ultima release dalla sezione **Releases** di GitHub (file `.jar`).
+2. Apri il tuo **Terminale** (su Mac) o **Prompt dei Comandi** (su Windows).
+3. Scrivi questo comando (lascia uno spazio finale e **NON premere ancora Invio**):
+   ```bash
+   java -jar 
+   ```
+4. **Trascina** il file `CsvCleaner.jar` che hai scaricato dentro la finestra del terminale.
+   *(Il computer scriverà automaticamente il percorso completo del file per te).*
+5. Ora premi **INVIO**.
 
-> **⚠️ Nota Importante per macOS:**
-> Al primo avvio, il Mac potrebbe bloccare lo script per sicurezza ("Sviluppatore non identificato"). Per risolvere:
-> 1. Fai **Tasto Destro** sul file `run_mac.command`.
-> 2. Seleziona **Apri**.
-> 3. Clicca su **Apri** nel pop-up di conferma.
->
-> Se invece ricevi un errore di permessi ("Permission denied"), apri il terminale nella cartella e scrivi:
-> `chmod +x run_mac.command`
-
-#### 🪟 Su Windows:
-Fai doppio click sul file `run_win.bat`.
+Il programma si avvierà e ti guiderà nella pulizia del tuo file CSV!
 
 ---
 
