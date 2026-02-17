@@ -17,7 +17,7 @@ public class CsvProcessor {
 
     private final CleaningStrategy strategy;
 
-    // Dependency Injection: Il processore riceve la strategia dall'esterno.
+    // Dependency Injection
     public CsvProcessor(CleaningStrategy strategy) {
         this.strategy = strategy;
     }
@@ -35,13 +35,11 @@ public class CsvProcessor {
         long totalBytes = inputFile.length();
         long readBytes = 0;
 
-        // 1. Apriamo il file in lettura forzando Windows-1252 (o ISO-8859-1).
-        //    Questo permette di leggere il byte 0xA0 come "Non-breaking space" senza crashare.
+        // 1. Apro il file in lettura forzando Windows-1252 (o ISO-8859-1).
         try (BufferedReader reader = new BufferedReader(
                 new InputStreamReader(new FileInputStream(inputFile), "windows-1252"));
 
-             // 2. Apriamo il file in scrittura forzando UTF-8.
-             //    Così MySQL non darà errori
+             // 2. Apro il file in scrittura forzando UTF-8.
              BufferedWriter writer = new BufferedWriter(
                      new OutputStreamWriter(new FileOutputStream(outputFile), StandardCharsets.UTF_8))) {
 
@@ -60,7 +58,7 @@ public class CsvProcessor {
                 readBytes += line.length() + 1; // +1 per il carattere a capo
                 linesCount++;
 
-                // Aggiorniamo la barra di avanzamento ogni 100 righe per non rallentare troppo
+                // aggiorna la barra di avanzamento ogni 100 righe per non rallentare troppo
                 if (linesCount % 100 == 0) {
                     int percent = (int) ((readBytes * 100) / totalBytes);
                     progressReporter.accept(percent);

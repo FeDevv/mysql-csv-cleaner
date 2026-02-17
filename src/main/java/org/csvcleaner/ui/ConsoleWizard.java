@@ -1,7 +1,7 @@
 package org.csvcleaner.ui;
 
 import org.csvcleaner.engine.CsvProcessor;
-import org.csvcleaner.strategy.NbspCleaningStrategy;
+import org.csvcleaner.strategy.UniversalCleaningStrategy;
 
 import java.io.File;
 import java.io.IOException;
@@ -29,7 +29,7 @@ public class ConsoleWizard {
             while (appRunning) {
 
                 // --- SEZIONE INPUT UTENTE ---
-                // 1. Info discreta per uscire (colore default)
+                // 1. Info discreta per uscire
                 System.out.println("\n(Scrivi 'exit' per uscire)");
 
                 // 2. Istruzione Principale
@@ -71,16 +71,26 @@ public class ConsoleWizard {
                     System.out.println(ConsoleColors.CYAN_BOLD + "\n🚀 Elaborazione in corso..." + ConsoleColors.RESET);
                     System.out.println("   Input:  " + inputFile.getName());
 
-                    CsvProcessor processor = new CsvProcessor(new NbspCleaningStrategy());
+                    UniversalCleaningStrategy cleaningStrategy = new UniversalCleaningStrategy();
+
+                    CsvProcessor processor = new CsvProcessor(cleaningStrategy);
 
                     // Avvio pulizia
                     processor.process(inputFile, outputFile, ConsoleWizard::drawProgressBar);
 
+                    long fixedCount = cleaningStrategy.getTotalFixedCharacters();
+
                     // Successo
                     System.out.println(ConsoleColors.GREEN_BOLD + "\n\n✅ COMPLETATO CON SUCCESSO" + ConsoleColors.RESET);
                     System.out.println("   File pronto: " + outputFile.getName());
+
+                    if (fixedCount > 0) {
+                        System.out.println("   ✨ Caratteri corretti: " + ConsoleColors.YELLOW + fixedCount + ConsoleColors.RESET);
+                    } else {
+                        System.out.println(ConsoleColors.BLUE_BOLD + "   (Il file era già pulito, nessuna modifica necessaria.)" + ConsoleColors.RESET);
+                    }
+
                     System.out.println("   Percorso:    " + outputFile.getAbsolutePath());
-                    System.out.println("   Puoi importarlo in MySQL (Table Data Import Wizard) senza errori.");
 
                 } catch (IOException e) {
                     printError("Errore I/O: " + e.getMessage());
@@ -93,6 +103,7 @@ public class ConsoleWizard {
                 appRunning = chiediSeContinuare(scanner);
             }
 
+            // messaggio all'uscita
             System.out.println(ConsoleColors.CYAN_BOLD + "\nヾ(＾-＾)ノ! 👋" + ConsoleColors.RESET);
         }
     }
@@ -123,9 +134,8 @@ public class ConsoleWizard {
     }
 
     private static void printBanner() {
-        // Design pulito in Ciano
         System.out.println(ConsoleColors.CYAN_BOLD);
-        System.out.println("   MySQL CSV CLEANER TOOL v1.0  ");
+        System.out.println("   MySQL CSV CLEANER TOOL v1.1  ");
         System.out.println("   ---------------------------   ");
         System.out.print(ConsoleColors.RESET);
     }
