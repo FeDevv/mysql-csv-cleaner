@@ -7,7 +7,7 @@
 Un tool da riga di comando (CLI) scritto in Java per risolvere i comuni errori di importazione CSV in MySQL, in particolare su macOS.
 
 ## ⬇️ Download
-[Scarica l'ultima versione per Mac/Windows qui](https://github.com/FeDevv/mysql-csv-cleaner/releases/download/v1.0.0/CsvCleaner.jar)
+[Scarica l'ultima versione per Mac/Windows qui](https://github.com/FeDevv/mysql-csv-cleaner/releases/download/v1.2.0/CsvCleaner-1.2.0.jar)
 
 ## ⚠️ Il Problema
 Quando si tenta di importare file CSV (spesso generati da Excel) in MySQL 8.0+, si verificano spesso questi errori:

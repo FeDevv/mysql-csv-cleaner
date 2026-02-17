@@ -58,6 +58,10 @@ public class ConsoleWizard {
                     printError("Il file non esiste o è una cartella. Riprova.");
                     continue;
                 }
+                if (inputFile.length() == 0) {
+                    printError("Il file selezionato è vuoto (0 byte).");
+                    continue;
+                }
 
                 // 5. Setup Output (original_CLEANED.csv)
                 String inputPath = inputFile.getAbsolutePath();
@@ -82,15 +86,21 @@ public class ConsoleWizard {
 
                     // Successo
                     System.out.println(ConsoleColors.GREEN_BOLD + "\n\n✅ COMPLETATO CON SUCCESSO" + ConsoleColors.RESET);
-                    System.out.println("   File pronto: " + outputFile.getName());
+                    System.out.println("   File pronto: " + outputFile.getName() + "\n");
 
                     if (fixedCount > 0) {
-                        System.out.println("   ✨ Caratteri corretti: " + ConsoleColors.YELLOW + fixedCount + ConsoleColors.RESET);
+                        // C'erano caratteri non compatibili
+                        System.out.println("   🛠️ Stato:      " + ConsoleColors.GREEN_BOLD + "RIPARATO" + ConsoleColors.RESET);
+                        System.out.println("   ✨ Errori corr.: "+ ConsoleColors.YELLOW + fixedCount +  ConsoleColors.RESET);
+                        System.out.println("   📄 File Output:  Generato in UTF-8");
                     } else {
-                        System.out.println(ConsoleColors.BLUE_BOLD + "   (Il file era già pulito, nessuna modifica necessaria.)" + ConsoleColors.RESET);
+                        // Il file era già pulito, ma è stato garantito l'UTF-8
+                        System.out.println("   👌 Stato:      " + ConsoleColors.GREEN_BOLD + "VERIFICATO" + ConsoleColors.RESET);
+                        System.out.println("   ✨ Errori corr.: " + ConsoleColors.YELLOW + "0" + ConsoleColors.RESET +" (Il testo era già corretto)");
+                        System.out.println("   📄 File Output:  Convertito/Validato in UTF-8");
                     }
 
-                    System.out.println("   Percorso:    " + outputFile.getAbsolutePath());
+                    System.out.println("   📂 Percorso:     " + outputFile.getAbsolutePath());
 
                 } catch (IOException e) {
                     printError("Errore I/O: " + e.getMessage());
